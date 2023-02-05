@@ -1,0 +1,7 @@
+test.*
+
+wiki_backend/.config/
+
+wiki_frontend/node_modules/
+
+nvm/
