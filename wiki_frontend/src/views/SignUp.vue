@@ -163,8 +163,15 @@ export default {
         },
 
         check_duplicate(name){
-
+            
             const _this = this;
+            if (name.hasOwnProperty("username")){
+                _this.username_error="";
+            }
+            else if (name.hasOwnProperty("email")){
+                this.email_error = "";
+            }
+
             // if there is no value in the name
             if (Object.values(name)[0]===''){
                 return;
@@ -266,7 +273,7 @@ export default {
             )
                 .then(function (res) {
                     console.log(res);
-                    _this.$router.replace({ name: 'Home' })
+                    _this.$router.replace({ name: 'Home' , params:{search:'all'}})
                 })
                 .catch(function (res) {
                     console.log('catching error');

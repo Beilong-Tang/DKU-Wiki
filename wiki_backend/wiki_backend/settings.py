@@ -32,15 +32,16 @@ ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS=['http://127.0.0.1:8080']
 
-
+# Email Part
 MESSAGE = "Welcome to DUKE Wiki, your verification code is %s."
 SUBJECT = "Verification Code for DUKE WIKI"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.126.com'
+EMAIL_HOST = os.environ.get("email_host")
 EMAIL_USE_TLS = False
 EMAIL_PORT = 25
-EMAIL_HOST_USER = "as911933211@126.com"
-EMAIL_HOST_PASSWORD = os.environ.get('email_password_126')
+EMAIL_HOST_USER = os.environ.get("email_username")
+EMAIL_HOST_PASSWORD = os.environ.get('email_password')
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

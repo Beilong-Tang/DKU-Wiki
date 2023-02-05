@@ -18,10 +18,37 @@
 
 
 ### Frontend
+go to wiki_frontend and do
 
+```
+npm install
+```
+
+to install all the packages.
+
+After installing the package, do 
+
+```
+npm run serve
+```
+
+to start the website.
 
 
 ### Backend
+The .config folder is ignored because it contains my personal data for sending the email.
+You should create a .config/settings.json and put things like 
+```json
+{
+    "email_useranme":"xxx",
+    "email_password":"xxx",
+    "email_host":"xxx"
+}
+
+```
+
+Also, see the email part for more information if you want to change sth.
+
 
 - Database : mysql
 - **db.sqlite** for now, will use mysql in the future
