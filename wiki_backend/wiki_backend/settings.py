@@ -27,10 +27,15 @@ SECRET_KEY = 'django-insecure-it58ml5lb0vt-1@342h=+h#!@i576hhuy+bho7!f3j*&1a8opn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 CORS_ALLOWED_ORIGINS=['http://127.0.0.1:8080']
+CSRF_TRUSTED_ORIGINS=['http://127.0.0.1:8080']
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:8080',
+]
 
 # Email Part
 MESSAGE = "Welcome to DUKE Wiki, your verification code is %s."

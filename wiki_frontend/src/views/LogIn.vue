@@ -39,6 +39,7 @@
 
 <script>
 import axios from 'axios'
+import {csrftoken} from './utils/utils'
 
 export default {
     name: "LogIn",
@@ -69,6 +70,7 @@ export default {
                 .then(function (response) {
                     console.log(response)
                     console.log('login successfully');
+                    // csrftoken = 
                     _this.$router.replace({'name':'Home', params: { search: 'all' }})
                 })
                 .catch(error => {

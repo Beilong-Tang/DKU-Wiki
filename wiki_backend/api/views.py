@@ -37,7 +37,7 @@ class Authentication(APIView):
     """
     check if the client is authenticated or not, if authenticated, return the client information
     """
-
+    
     permission_classes=(permissions.AllowAny,)
 
     def get(self,request):

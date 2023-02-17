@@ -39,7 +39,7 @@
                     <div class="flex-shrink-0 dropdown">
                         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
+                            <img :src= avator alt="mdo" width="32" height="32"
                                 class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small shadow">
@@ -75,6 +75,9 @@
 <script>
 import axios from "axios"
 
+import {inject} from 'vue'
+const global = inject('global')
+
 export default {
     name: "TopNav",
     data() {
@@ -83,6 +86,8 @@ export default {
             avator: "",
             username: "",
             search: "",
+            baseurl:""
+            
         }
     },
     methods: {
@@ -109,12 +114,16 @@ export default {
 
     created() {
         const _this = this;
+        _this.baseurl = _this.global.baseurl;
         axios.get('api/authentication/')
             .then(function (res) {
                 if (res.data.unauthenticated) {
                     console.log("unauthenticated");
                     return;
                 }
+                // console.log(res.data)
+                const avator = res.data.client.avator;
+                _this.avator = _this.baseurl+avator;
                 _this.username = res.data.username
                 _this.if_authenticated = true
             })

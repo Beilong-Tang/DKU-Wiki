@@ -17,6 +17,7 @@ class index(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def get(self,request):
+        print(request.user)
         search = request.query_params.get('search')
         if search == None:
             entries = Entry.objects.all()
@@ -35,13 +36,19 @@ class detail(APIView):
 
     def get(self,request,id):
         entry = Entry.objects.get(id=id)
-        return Response({'entry':entry.content})
+        return Response({'entry':entry.content,'title':entry.title})
 
 class CreateEntry(APIView):
     """
     Create an entry
     """
+    # authentication_classes = [authentication.SessionAuthentication]
     permission_classes = (permissions.IsAuthenticated,)
     
-    def get(self,request):
+    def post(self,request):
+        serializer = serializers.CreateEntrySerializer(data=request.data, context={'request':self.request})
+        serializer.is_valid(raise_exception=True)
+
+        return Response({'id':serializer.validated_data.get('id')})
+
         pass
