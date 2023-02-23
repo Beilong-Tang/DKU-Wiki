@@ -29,6 +29,16 @@ class CreateEntrySerializer(serializers.Serializer):
         request =self.context.get('request')
         client = Client.objects.get(user = request.user)
         
-        entry = Entry.objects.create(client = client, content = content, tag ='',title=title)
+        if (Entry.objects.filter(title=title).exists()):
+            entry = Entry.objects.get(title=title)
+            entry.content=content
+            entry.save()
+            print(entry.content)
+            print(1)
+        
+        else:
+            entry = Entry.objects.create(client = client, content = content, tag ='',title=title)
+        
+        
         attrs['id'] = entry.id
         return attrs 

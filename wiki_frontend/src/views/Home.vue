@@ -1,5 +1,6 @@
 <!-- See all the posts in home page -->
 <template>
+
     <div class="container">
         <div v-for="entry in entries" :key="entry.id" class="entry" >
             <div class="row">
@@ -74,8 +75,6 @@ export default {
                 .catch(res=>{
                     console.log("catching error");
                     })
-
-
                 }
         }
     },
@@ -91,21 +90,23 @@ export default {
         // inspect the router
 
         $route(to,from){
-
             if (from.name==='Home' && from.path.indexOf('search=') != -1){
+                console.log("fetching data")
                 this.search = this.$route.params.search;
                 this.get_data();
+                return;
             }
-        }
+
+        },
+
     },
 
 
     mounted() {
-
         this.get_data();
-         var quill = new Quill('#editor', {
-           theme: 'snow'
-        });
+        //  var quill = new Quill('#editor', {
+        //    theme: 'snow'
+        // });
     }
 
 }

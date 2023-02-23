@@ -1,17 +1,18 @@
 import Quill from 'quill'
 
-function setContent(id, content){
-    var editor = new Quill('#'+id, {
+function setContent(id, content,_this){
+    _this.quill= new Quill('#'+id, {
             theme: 'snow',
             readOnly:true,
-            modules: {
-                "toolbar": false
-            }
+            // modules: {
+            //     "toolbar": false
+            // }
             })
 
-    editor.setContents(content)
+    _this.quill.setContents(content)
     // document.getElementById
-
+    var toolbar = document.getElementsByClassName("ql-toolbar")[0];
+    toolbar.style.display='none';
 }
 
 function getCookie(name) {
@@ -21,6 +22,10 @@ function getCookie(name) {
     else
       return null;
   }
+
+// function disableEdit(this){
+
+// }
 
 
 var csrftoken=""

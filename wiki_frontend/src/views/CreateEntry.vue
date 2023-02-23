@@ -87,7 +87,15 @@ export default {
             
             ;
         }
-    }
+    },
+    watch:{
+
+        // inspect the router
+
+        $route(to,from){
+            console.log('creating entry')
+        }
+    },
 }
 
 </script>

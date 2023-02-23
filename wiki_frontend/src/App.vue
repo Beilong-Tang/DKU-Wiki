@@ -4,7 +4,7 @@
     <TopNav />
   </div>
   <nav>
-    <router-link :to="{ name: 'Home', params:{search:'all'}}">Home</router-link> |
+    <!-- <router-link :to="{ name: 'Home', params:{search:'all'}}">Home</router-link> | -->
   </nav>
   <router-view />
 
