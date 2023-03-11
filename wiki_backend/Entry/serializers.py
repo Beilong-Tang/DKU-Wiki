@@ -58,17 +58,16 @@ class CreateEntrySerializer(serializers.Serializer):
             # update tag
             entry = Entry.objects.get(title=title)
 
-            # update tag
-            if tag is not None:
-                entry.tag = tag
-            
-            elif content is not None:
-                entry.content=content
+            entry.tag = tag
+            entry.content=content
             entry.save()
+
+            Tag.modifyTag()
             
         # create a new entry
         else:
             entry = Entry.objects.create(client = client, content = content, tag = tag,title = title)
+            Tag.addTag()
 
         attrs['id'] = entry.id
         return attrs 

@@ -75,7 +75,6 @@ export default {
             
             changeStyle(this.edit);
 
-
             this.quill.enable();
         },
 
@@ -113,8 +112,9 @@ export default {
             }
 
             const formData={
-                title:this.entry.title,
-                content:content
+                title:this.title,
+                content:content,
+                tag:this.tag
             }
             axios.post('/entry/create_entry/' , formData,
             {

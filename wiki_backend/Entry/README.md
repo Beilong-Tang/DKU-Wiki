@@ -37,7 +37,7 @@ Return the detailed content of a post
 |ViewName| detail|
 |url | `entry/entry/<:id>`|
 |Return Type| json|
-|Return Example| ['id' :10,'client' :\<Object: Client\>,'title','create_date','tag'] |
+|Return Example| ['id' :10,'client' :\<Object: Client\>,'title','create_date','tag', 'content'] |
 
 ```javascript
 
