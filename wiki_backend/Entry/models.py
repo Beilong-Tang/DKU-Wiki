@@ -14,7 +14,7 @@ class Entry(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE) # client(1) -> entry (many)
     content = models.JSONField() # the content of the entry
     title = models.CharField(max_length=50) # the title of the entry
-    tag = models.CharField(max_length=50) # the tag of the entry
+    tag = models.JSONField() # the tag of the entry
     create_date = models.DateTimeField(auto_now_add=True) # the time it is created
     update_date = models.DateTimeField(auto_now=True) # the latest updated time
     def __str__(self) ->str:
@@ -28,3 +28,15 @@ class client_entry_updated(models.Model):
     diff=models.TextField()
     pass
 
+
+class Tags(models.Model):
+    name = models.CharField(max_length=50) # tag name
+    number = models.IntegerField(default = 1) # tag number
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self) ->str:
+        return self.name
+
+    pass

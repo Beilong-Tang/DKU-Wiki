@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import LogIn from '../views/LogIn.vue'
 // import SignUp from '../views/SignUp.vue'
-import Home from '../views/Home.vue'
+import EntryList from '../views/EntryList.vue'
 // import DetailEntry from '../views/DetailEntry.vue'
+import Index from '../views/Index.vue'
 
 const routes = [
   {
@@ -15,13 +16,28 @@ const routes = [
     name: 'SignUp',
     component:()=>import('../views/SignUp.vue')
   },
+  //entry page
   {
-    path: '/Home/search=:search',
-    name: 'Home',
-    component: Home
+    path: '/entry',
+    name: 'EntryList',
+    component: EntryList
+  },
+
+  {
+    path:"/tags",
+    name:"TagList",
+    component:()=>import('../views/TagList.vue')
+  },
+
+
+  // index page
+  {
+    path: '/index/',
+    name: 'Index',
+    component: Index
   },
   {
-    path: '/Home/:id',
+    path: '/entry/:id',
     name: 'DetailEntry',
     component:()=>import('../views/DetailEntry.vue')
   },

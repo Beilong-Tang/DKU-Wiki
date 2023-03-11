@@ -1,5 +1,6 @@
 import Quill from 'quill'
 
+// quill
 function setContent(id, content,_this){
     _this.quill= new Quill('#'+id, {
             theme: 'snow',
@@ -8,12 +9,22 @@ function setContent(id, content,_this){
             //     "toolbar": false
             // }
             })
-
     _this.quill.setContents(content)
     // document.getElementById
     var toolbar = document.getElementsByClassName("ql-toolbar")[0];
     toolbar.style.display='none';
 }
+
+// bind the data received to the data on the page
+function setData(_this, data, args){
+
+
+  for (var i = 2; i < arguments.length; i++){
+    _this[arguments[i]] = data[arguments[i]]
+  }
+
+}
+
 
 function getCookie(name) {
     var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
@@ -23,9 +34,23 @@ function getCookie(name) {
       return null;
   }
 
-// function disableEdit(this){
+function changeStyle(ifEdit){
+    if (ifEdit){
+      var toolbar = document.getElementsByClassName("ql-toolbar")[0];
+      toolbar.style.display='block';
+      var content = document.getElementById("content");
+      content.style.border='1px solid #ccc'
+      content.style.borderTop='0px';
+      return;
+    }
+    else{
+      var toolbar = document.getElementsByClassName("ql-toolbar")[0];
+      toolbar.style.display='none';
+      var content = document.getElementById("content");
+      content.style.border='0px';
+    }
 
-// }
+}
 
 
 var csrftoken=""
@@ -33,5 +58,7 @@ var csrftoken=""
 export {
     setContent,
     csrftoken,
-    getCookie
+    getCookie,
+    changeStyle,
+    setData
 };

@@ -273,7 +273,7 @@ export default {
             )
                 .then(function (res) {
                     console.log(res);
-                    _this.$router.replace({ name: 'Home' , params:{search:'all'}})
+                    _this.$router.replace({ name: 'EntryList' , params:{search:'all'}})
                 })
                 .catch(function (res) {
                     console.log('catching error');

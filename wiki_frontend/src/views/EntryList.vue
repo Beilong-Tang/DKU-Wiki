@@ -1,6 +1,11 @@
 <!-- See all the posts in home page -->
 <template>
 
+    <div>
+
+
+    </div>
+
     <div class="container">
         <div v-for="entry in entries" :key="entry.id" class="entry" >
             <div class="row">
@@ -44,9 +49,17 @@ export default {
     data() {
         return {
             entries: '',
-            search:this.$route.params.search,
+            search:'',
         }
     },
+
+    created() {
+        this.nav_show();
+        this.search = this.$route.query.search;
+        this.get_data();
+    },
+
+
     methods: {
         
         get_data(){
@@ -54,12 +67,15 @@ export default {
             const _this = this;
             _this.entries ="";
 
-            if (_this.search =='all'){
+            if (_this.search ==''){
                 axios.get("/entry/entries/",)
                 .then(response => {
                     this.entries = response.data
                 })
             }
+
+
+
             else {
                 axios.get("entry/entries/",
                     {
@@ -79,20 +95,19 @@ export default {
         }
     },
 
-    name: 'Home',
+    name: 'EntryList',
     inject: ['nav_show'],
-    created() {
-        this.nav_show();
-    },
 
     watch:{
 
         // inspect the router
 
         $route(to,from){
-            if (from.name==='Home' && from.path.indexOf('search=') != -1){
+            console.log(from);
+            console.log(to);
+            if (from.name==='EntryList' && to.name=='EntryList'){
                 console.log("fetching data")
-                this.search = this.$route.params.search;
+                this.search = this.$route.query.search;
                 this.get_data();
                 return;
             }
@@ -100,14 +115,6 @@ export default {
         },
 
     },
-
-
-    mounted() {
-        this.get_data();
-        //  var quill = new Quill('#editor', {
-        //    theme: 'snow'
-        // });
-    }
 
 }
 </script>

@@ -36,7 +36,8 @@ class detail(APIView):
 
     def get(self,request,id):
         entry = Entry.objects.get(id=id)
-        return Response({'entry':entry.content,'title':entry.title})
+        serializer = serializers.DetailEntrySerializer(entry)
+        return Response(serializer.data)
 
 class CreateEntry(APIView):
     """
@@ -48,7 +49,18 @@ class CreateEntry(APIView):
     def post(self,request):
         serializer = serializers.CreateEntrySerializer(data=request.data, context={'request':self.request})
         serializer.is_valid(raise_exception=True)
-
+        print(request.data)
         return Response({'id':serializer.validated_data.get('id')})
 
         pass
+
+class TagList(APIView):
+
+    permission_classes=(permissions.AllowAny,)
+
+    def get(self, request):
+        tags = Tags.objects.all()
+        serializer = serializers.TagSerializer(tags,many=True)
+        return Response(serializer.data)
+
+    

@@ -2,17 +2,19 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    isAuthenticated:false,
+    isLogin:false,
   },
   getters: {
   },
   mutations: {
-    authenticate(state){
-      state.isAuthenticated = true;
+    Login(state){
+      console.log("state login")
+      state.isLogin = true;
     },
 
-    logout(state){
-      state.isAuthenticated = false;
+    Logout(state){
+      console.log("state logout")
+      state.isLogin = false;
     }
     
 

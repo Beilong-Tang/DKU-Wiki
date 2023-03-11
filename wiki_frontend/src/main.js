@@ -22,7 +22,10 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000'
 axios.defaults.withCredentials = true;
 
 const app1 = createApp(App).use(store).use(router,axios);
-app1.config.globalProperties.global={baseurl:baseurl};
+app1.config.globalProperties.global={
+    baseurl:baseurl
+};
+
 app1.mount("#app")
 
 

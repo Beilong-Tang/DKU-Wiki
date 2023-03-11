@@ -68,7 +68,9 @@ export default {
                 .post('/api/login/', formData)
                 .then(function (response) {
 
-                    _this.$router.replace({'name':'Home', params: { search: 'all' }})
+                    // store.commit('Login');
+                    _this.$store.commit("Login");
+                    _this.$router.replace({'name':'EntryList', params: { search: 'all' }})
                 })
                 .catch(error => {
                     this.message="Bad Credentials, please try again."
