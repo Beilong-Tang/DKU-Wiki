@@ -33,8 +33,8 @@ to start the website.
 
 Once starting the server, visit
 
-```
-127.0.0.1:8000
+```python
+127.0.0.1:8000 # IMPORTANT
 ```
 
 instead of `localhost:8000` (This will have some cross-origin problem).
