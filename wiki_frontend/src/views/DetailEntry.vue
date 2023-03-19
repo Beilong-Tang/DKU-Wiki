@@ -24,7 +24,7 @@
 
             <div class="col-md-2">
 
-                 <li v-for="item in tocData" :key="item.id" :class="`item-${item.tagName.charAt(1)}`" ><a href="#Test" @click="anchor(item.id)">{{ item.innerHTML }}</a> </li>
+                 <li v-for="item in tocData" :key="item.id" :class="`item-${item.tagName.charAt(1)}`" ><a :href="'#'+item.id" @click="anchor(item.id)">{{ item.innerHTML }}</a> </li>
 
             </div>
 
@@ -55,7 +55,6 @@
 
 
 import InputPart from '../components/InputPart.vue'
-import QuillEdit from '../components/QuillEdit.vue'
 import EntrySideNav from '../components/EntrySideNav.vue'
 import axios from 'axios'
 // import Quill from 'quill'
@@ -64,7 +63,7 @@ import { setData } from './utils/utils'
 
 export default {
 
-    components: { InputPart, QuillEdit, EntrySideNav },
+    components: { InputPart, EntrySideNav },
 
 
     name: 'DetailEntry',
@@ -151,12 +150,6 @@ export default {
 
         },
 
-        anchor(id){
-            let anchorElement = document.getElementById(id)
-            if (anchorElement) {
-            anchorElement.scrollIntoView()
-            }
-        },
     },
     inject: ['nav_show'],
 

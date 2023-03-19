@@ -1,11 +1,6 @@
 ## Environment Setup
 
-**db.sqlite** for now, will
-
-
-
-
-
+**db.sqlite** for now
 
 
 ## Project Details
@@ -34,6 +29,15 @@ npm run serve
 
 to start the website.
 
+**Important**: 
+
+Once starting the server, visit
+
+```
+127.0.0.1:8000
+```
+
+instead of `localhost:8000` (This will have some cross-origin problem).
 
 ### Backend
 The .config folder is ignored because it contains my personal data for sending the email.
