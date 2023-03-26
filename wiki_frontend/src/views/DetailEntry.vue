@@ -14,31 +14,32 @@
         <div v-else>
 
             tags:
-            <span v-for="item in tag" :key="item" class="badge bg-primary me-1">{{item}}</span>
-        
+            <span v-for="item in tag" :key="item" class="badge bg-primary me-1">{{ item }}</span>
+
         </div>
 
         <h1>{{ title }}</h1>
 
         <div class="row">
 
-            <div class="col-md-2">
-
-                 <li v-for="item in tocData" :key="item.id" :class="`item-${item.tagName.charAt(1)}`" ><a :href="'#'+item.id" @click="anchor(item.id)">{{ item.innerHTML }}</a> </li>
-
+            <div class="col-md-3">
+                <div class="toc">
+                    <li v-for="item in tocData" :key="item.id" :class="`item-${item.tagName.charAt(1)}`"><a
+                            :href="'#' + item.id" @click="anchor(item.id)" :id=a+item.id>{{ item.innerHTML }}</a> </li>
+                </div>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="entry">
-                    
-                     <v-md-editor v-if="!edit" v-model="origin_content"  mode="preview"></v-md-editor>
-                    
-                     <v-md-editor v-else v-model="content" mode="editable" ></v-md-editor>
-                    
-                    </div>
+
+                    <v-md-editor v-if="!edit" v-model="origin_content" mode="preview"></v-md-editor>
+
+                    <v-md-editor v-else v-model="content" mode="editable"></v-md-editor>
+
+                </div>
             </div>
 
-           
+
 
 
 
@@ -80,10 +81,11 @@ export default {
             tag: null, //changeable
             tag_origin: null, //the origianl tag
             content: null,
-            origin_content:null,
+            origin_content: null,
             taglist: null,
             value: "## 1 23 \n\n # 456 \n\n $a=1$",
             tocData: null,
+            a:"a_", // used to do the toc highlighting
         }
     },
 
@@ -168,7 +170,7 @@ export default {
         axios.get("/entry/entry/" + this.id)
             .then(response => {
                 setData(this, response.data, 'client', 'title', 'create_date', 'tag', 'content')
-                this.origin_content=this.content;
+                this.origin_content = this.content;
                 this.tag_origin = this.tag;
             })
             .catch(response => {
@@ -177,13 +179,41 @@ export default {
     },
 
     mounted() {
+        const _this = this;
         var tocs = document.querySelectorAll('h1,h2,h3');
-        for (var i =0;i<tocs.length;i++){
+        for (var i = 0; i < tocs.length; i++) {
             tocs[i].id = tocs[i].innerHTML
         }
         this.tocData = tocs;
 
+        window.onscroll = function () {
+            var tocs = document.querySelectorAll('h1,h2,h3');
+            var e=document.getElementsByClassName("entry")[0]
+            // console.log(tocs)
+            for (var i = 0; i < tocs.length; i++) {
+                var top = tocs[i].offsetTop + e.offsetTop;
+                var hl = document.getElementById(_this.a + tocs[i].id)
+                if ((top > window.scrollY) && (top < window.scrollY + window.innerHeight)){
+                    // tocs[i].className = tocs[i].className + "active "
+                
+                    if (hl.className.indexOf("active ")==-1){
+                    hl.className=hl.className +"active ";}
+                }
+                else {
+                    hl.className = hl.className.replace("active ","")
+                }
+
+
+            }
+        }
     },
+
+    beforeDestroy() {
+
+        window.onscroll = null
+
+    },
+
 
 
 
@@ -195,28 +225,33 @@ export default {
 </script>
 
 <style>
-
-ul {
-  border: 1px solid #000;
-}
-ul li {
-  list-style: none;
-}
 .item-1 {
-  font-weight: 700;
-  padding-left: 0;
+    font-weight: 700;
+    padding-left: 0;
 }
+
 .item-2 {
-  padding-left: 20px;
+    padding-left: 20px;
 }
+
 .item-3 {
-  padding-left: 40px;
+    padding-left: 40px;
 }
+
 content {
     border: 0px;
 }
 
 .scrollbar {
     text-align: left;
+}
+
+.toc {
+    position: sticky;
+    top: 50px
+}
+
+.active{
+    color:red
 }
 </style>

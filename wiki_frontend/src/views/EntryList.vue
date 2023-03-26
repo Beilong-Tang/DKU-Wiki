@@ -6,12 +6,14 @@
 
     </div>
 
-    <div class="container">
+    <div class="container" style="text-align: center;">
         <div v-for="entry in entries" :key="entry.id" class="entry" >
             <div class="row">
+                <div style="width:40%">
                 <router-link :to="{ name: 'DetailEntry', params: { id: entry.id } }">
-                    <div style="width:40%">Title:{{ entry.title }}</div>
+                    Title:{{ entry.title }}
                 </router-link>
+                </div>
                 <div style="width:10%"></div>
                 <div style="width:40%">Creator_ID:{{ entry.client }}</div>
             </div>
