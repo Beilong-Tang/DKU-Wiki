@@ -1,3 +1,5 @@
+import re
+
 from Entry.models import Entry, Client, Tags
 
 from .utils.tags import TagClass
@@ -6,13 +8,32 @@ from django.contrib.auth import authenticate
 
 from rest_framework import serializers
 
+class ClientSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Client
+        fields= ['id','nickname']
+
 class EntrySerializer(serializers.ModelSerializer):
     """
     Return id, client, title, create_date for searching
     """
+    client = ClientSerializer()
+
+    content_min = serializers.SerializerMethodField()
+
+    def get_content_min(self, entry):
+        content = entry.content
+        # print(content)
+        content = content[content.find("\n")+1:]
+        content = content[:content.find("#")] 
+        content = re.sub("\n+"," ", content)
+        return content[:200]+"..."
+        pass
+
     class Meta:
         model = Entry
-        fields = ['id','client','title','create_date']
+        fields = ['id','client','title','create_date','content_min' ,'tag']
 
 class DetailEntrySerializer(serializers.ModelSerializer):
     '''

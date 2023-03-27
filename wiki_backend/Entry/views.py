@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 # Create your views here.
 
 # show all the posts or the post that is related to search result
-class index(APIView):
+class PostList(APIView):
 
     authentication_classes = [authentication.SessionAuthentication]
     permission_classes = (permissions.AllowAny,)

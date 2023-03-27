@@ -10,40 +10,35 @@
             <div class="collapse navbar-collapse" id="navbarsExampleXxl">
                 <ul class="navbar-nav me-auto mb-2 mb-xl-0">
                     <li class="nav-item">
-                         <router-link :to="{ name: 'Index'}">
+                        <router-link :to="{ name: 'Index' }">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </router-link>
                     </li>
                 </ul>
-                
-                <form @submit.prevent="go_search()" class="m-auto d-block w-50">
+
+                <form class="m-auto d-block w-50">
                     <div class="d-flex">
                         <div class="input-group">
-                                <input class="form-control" placeholder="Search" aria-label="Search" v-model="search">
-                                <div>
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tag</button>
+                            <input class="form-control" placeholder="Search" aria-label="Search" v-model="search">
+                            <div>
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false" @click="getTag()">Tag</button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="tagdropdown">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                    <li v-for="tag in tags"><button class="dropdown-item btn btn-outline-primary" 
+                                        @click="addTag(tag.name)">{{ tag.name }}</button></li>
                                 </ul>
-                                </div>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success mx-2">Search</button>
+                        <button type="submit" class="btn btn-success mx-2" @click="go_search()">Search</button>
                     </div>
                 </form>
 
-
-
                 <div class="user authenticated" v-if="username">
                     <div class="flex-shrink-0 dropdown">
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img :src= avator alt="mdo" width="32" height="32"
-                                class="rounded-circle">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img :src=avator alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small shadow">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -66,19 +61,13 @@
                         <button type="button" class="btn btn-outline-light me-2">Sign-up</button>
                     </router-link>
                 </div>
-
-
-
             </div>
         </div>
     </nav>
-
 </template>
 
 <script>
 import axios from "axios"
-
-import {inject} from 'vue'
 
 export default {
     name: "TopNav",
@@ -88,20 +77,40 @@ export default {
             avator: "",
             username: "",
             search: "",
-            baseurl:""
-            
+            baseurl: "",
+            tags: "",
         }
     },
     methods: {
+        addTag(tag_name){
+            this.search = tag_name + this.search
+        },  
+
+        getTag() {
+            if (this.tags){
+                return;
+            }
+            axios.get(
+                'entry/tags'
+            )
+                .then(res => {
+
+                    console.log(res);
+                    this.tags = res.data
+                })
+                .catch(res => {
+                    console.log("tag fetching error");
+                    console.log(res);
+                })
+        },
+
         logout() {
             const _this = this;
             axios.get('api/logout/')
                 .then(function (res) {
                     console.log("logout success")
                     _this.username = ""
-                    
                     _this.$store.commit("Logout");
-
                 })
                 .catch(function (res) {
                     console.log("logout fail")
@@ -109,8 +118,8 @@ export default {
                 })
         },
         go_search() {
-
-            this.$router.push({name:'EntryList',query:{search:this.search}});
+            console.log(111)
+            this.$router.push({ name: 'EntryList', query: { search: this.search } });
         },
     },
 
@@ -125,7 +134,7 @@ export default {
                     return;
                 }
                 const avator = res.data.client.avator;
-                _this.avator = _this.baseurl+avator;
+                _this.avator = _this.baseurl + avator;
                 _this.username = res.data.username
                 _this.if_authenticated = true
                 _this.$store.commit("Login");
@@ -141,6 +150,4 @@ export default {
 
 <style>
 @import './css/TopNav.css';
-
-
 </style>

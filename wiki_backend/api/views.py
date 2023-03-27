@@ -4,12 +4,9 @@
 from . import serializers
 from django.conf import settings
 
-import random
-
 
 from django.contrib.auth import login
 from django.contrib.auth import logout
-from django.core.mail import send_mail
 # from django.contrib.auth import authenticate
 
 from rest_framework import permissions
@@ -71,8 +68,6 @@ class SignUpView(APIView):
         login(request,user)
         return Response({'msg':"Account has been successfully signed up !"})
 
-
-
 class SendEmailView(APIView):
 
     permission_classes=(permissions.AllowAny,)
@@ -89,14 +84,3 @@ class CheckDuplication(APIView):
         serializer.is_valid(raise_exception=True)
         return Response({'msg':"The username is okay",'code':200})
     
-class CreateEntry(APIView):
-    """
-    Crete or update the current entry
-    """
-
-    permission_classes=(permissions.IsAuthenticated,)
-    
-    def get(self,request):
-        serializer = serializers
-        
-

@@ -124,7 +124,7 @@ class SignUpSerializer(serializers.Serializer):
 
         # create user and client 
         user = User.objects.create_user(username=username,password = password, email =email)
-        client = Client.objects.create(user=user)
+        client = Client.objects.create(user=user, nickname = username)
         
         data['user'] = user
 

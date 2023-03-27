@@ -34,10 +34,10 @@ to start the website.
 Once starting the server, visit
 
 ```python
-127.0.0.1:8000 # IMPORTANT
+127.0.0.1:8080 # IMPORTANT
 ```
 
-instead of `localhost:8000` (This will have some cross-origin problem).
+instead of `localhost:8080` (This will have some cross-origin problem).
 
 ### Backend
 The .config folder is ignored because it contains my personal data for sending the email.

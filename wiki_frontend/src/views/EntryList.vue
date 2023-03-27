@@ -1,43 +1,44 @@
 <!-- See all the posts in home page -->
 <template>
-
     <div>
 
 
     </div>
 
-    <div class="container" style="text-align: center;">
-        <div v-for="entry in entries" :key="entry.id" class="entry" >
+    <div class="container">
+        
             <div class="row">
-                <div style="width:40%">
-                <router-link :to="{ name: 'DetailEntry', params: { id: entry.id } }">
-                    Title:{{ entry.title }}
-                </router-link>
-                </div>
-                <div style="width:10%"></div>
-                <div style="width:40%">Creator_ID:{{ entry.client }}</div>
-            </div>
-            <div class="row">
-                <div style="width:40%">
-                    <p>Date:{{ entry.create_date }}</p>
-                </div>
+
+            <div class="list-group">
+                <button class="list-group-item list-group-item-action" aria-current="true"
+                 v-for="entry in entries" :key="entry.id" @click="toPost(entry.id)">
+                    <!-- <router-link :to="{ name: 'DetailEntry', params: { id: entry.id } }"> -->
+                    <div class="d-flex w-100 justify-content-center">
+                        <h4 class="mb-1" style="color:#1674A9">{{ entry.title }}</h4>
+                    </div>
+                    <p class="mb-1 text">{{ entry.content_min}}</p>
+                     <div class="d-flex w-100 justify-content-around">
+                        <small class="text-muted">{{ entry.create_date }}</small>
+                        <small class>{{ entry.client.nickname }}</small>
+                        <div><span v-for="item in entry.tag" :key="item" class="badge bg-primary me-1">{{ item }}</span></div>
+                    </div>
+                    <!-- </router-link> -->
+                </button>
             </div>
 
         </div>
 
-        <div v-if="entries == ''" >
-            <p> Want to create an entry for <b>{{search}}</b> ? Click 
-            <router-link :to ="{name:'CreateEntry',query:{subject:search}}">
-                here
-            </router-link>
+        <div v-if="entries == ''">
+            <p> Want to create an entry for <b>{{ search }}</b> ? Click
+                <router-link :to="{ name: 'CreateEntry', query: { subject: search } }">
+                    here
+                </router-link>
             </p>
         </div>
 
-        
+
 
     </div>
-
-
 </template>
 
 <script>
@@ -51,7 +52,7 @@ export default {
     data() {
         return {
             entries: '',
-            search:'',
+            search: '',
         }
     },
 
@@ -63,17 +64,21 @@ export default {
 
 
     methods: {
-        
-        get_data(){
-                   
-            const _this = this;
-            _this.entries ="";
 
-            if (_this.search ==''){
+        toPost(id){
+            this.$router.push({ name: 'DetailEntry', params: { id: id } });
+        },
+
+        get_data() {
+
+            const _this = this;
+            _this.entries = "";
+
+            if (_this.search == '') {
                 axios.get("/entry/entries/",)
-                .then(response => {
-                    this.entries = response.data
-                })
+                    .then(response => {
+                        this.entries = response.data
+                    })
             }
 
 
@@ -81,33 +86,33 @@ export default {
             else {
                 axios.get("entry/entries/",
                     {
-                        params:{
+                        params: {
                             'search': _this.search
                         }
                     }
                 )
-                .then (res =>{
-                    console.log(res);
-                    this.entries = res.data;
-                })
-                .catch(res=>{
-                    console.log("catching error");
+                    .then(res => {
+                        console.log(res);
+                        this.entries = res.data;
                     })
-                }
+                    .catch(res => {
+                        console.log("catching error");
+                    })
+            }
         }
     },
 
     name: 'EntryList',
     inject: ['nav_show'],
 
-    watch:{
+    watch: {
 
         // inspect the router
 
-        $route(to,from){
+        $route(to, from) {
             console.log(from);
             console.log(to);
-            if (from.name==='EntryList' && to.name=='EntryList'){
+            if (from.name === 'EntryList' && to.name == 'EntryList') {
                 console.log("fetching data")
                 this.search = this.$route.query.search;
                 this.get_data();
@@ -125,5 +130,11 @@ export default {
 .entry {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.text{
+     overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
 }
 </style>

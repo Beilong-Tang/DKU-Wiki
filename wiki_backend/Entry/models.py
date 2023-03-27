@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE)
     avator = models.ImageField(upload_to='avator', default = 'avator/default_image.png')
+    nickname = models.CharField(max_length=50, null= True, blank=True)
+    
 
     def __str__(self) ->str:
         return self.user.username
