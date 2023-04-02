@@ -29,11 +29,12 @@
         </div>
 
         <div v-if="entries == ''">
-            <p> Want to create an entry for <b>{{ search }}</b> ? Click
+            <!-- <p> Want to create an entry for <b>{{ search }}</b> ? Click
                 <router-link :to="{ name: 'CreateEntry', query: { subject: search } }">
                     here
                 </router-link>
-            </p>
+            </p> -->
+            <p> No results</p>
         </div>
 
 
@@ -53,12 +54,19 @@ export default {
         return {
             entries: '',
             search: '',
+            tag_chose:[],
         }
     },
 
     created() {
         this.nav_show();
         this.search = this.$route.query.search;
+        if (!this.$route.query.tags){
+            this.tag_chose=""
+        }
+        else{
+            this.tag_chose=this.$route.query.tags
+        }
         this.get_data();
     },
 
@@ -74,20 +82,12 @@ export default {
             const _this = this;
             _this.entries = "";
 
-            if (_this.search == '') {
-                axios.get("/entry/entries/",)
-                    .then(response => {
-                        this.entries = response.data
-                    })
-            }
 
-
-
-            else {
                 axios.get("entry/entries/",
                     {
                         params: {
-                            'search': _this.search
+                            'search': _this.search,
+                            'tags':_this.tag_chose.toString(),
                         }
                     }
                 )
@@ -98,7 +98,6 @@ export default {
                     .catch(res => {
                         console.log("catching error");
                     })
-            }
         }
     },
 
@@ -110,11 +109,17 @@ export default {
         // inspect the router
 
         $route(to, from) {
-            console.log(from);
-            console.log(to);
             if (from.name === 'EntryList' && to.name == 'EntryList') {
                 console.log("fetching data")
                 this.search = this.$route.query.search;
+                if (!this.$route.query.tags){
+                    this.tag_chose=""
+                }
+                else{
+                    this.tag_chose=this.$route.query.tags
+                }
+                ;
+                console.log(this.tag_chose)
                 this.get_data();
                 return;
             }

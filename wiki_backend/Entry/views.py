@@ -1,6 +1,7 @@
 from Entry.models import *
 from Entry import serializers
 
+from .utils.helper import getEntry
 
 
 from rest_framework import authentication
@@ -17,12 +18,10 @@ class PostList(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def get(self,request):
-        print(request.user)
+        tags = request.query_params.get("tags").split(",") # array of tags
+        print(tags)
         search = request.query_params.get('search')
-        if search == None:
-            entries = Entry.objects.all()
-        else:
-            entries = Entry.objects.filter(title__contains=search)
+        entries = getEntry(tags=tags, search=search)
         serializer = serializers.EntrySerializer(entries,many=True)
         response = Response(serializer.data)
 

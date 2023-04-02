@@ -1,18 +1,22 @@
 <template>
     <div class="container">
 
-        <h1>{{ subject }}</h1>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Put your title here" aria-label="Username"
+                aria-describedby="basic-addon1" v-model="subject">
+        </div>
 
         <button type="button" class="btn btn-primary mb-1" @click="submit()">Submit</button>
 
         <br>
 
-        <InputPart v-if="taglist" @updateInput='confirmTag'  :inputlist=tags :taglist=taglist />
+        <InputPart v-if="taglist" @updateInput='confirmTag' :inputlist=tags :taglist=taglist />
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tags">Tags</button> -->
 
-        <div id="editor" style="min-height:500px">
-
-        </div>
+        <v-md-editor v-model="content" mode="editable"></v-md-editor>
 
     </div>
 </template>
@@ -28,7 +32,7 @@ import InputPart from '../components/InputPart.vue'
 export default {
     data() {
         return {
-            subject: this.$route.query.subject,
+            subject: "",
             id: this.$route.query.id,
             content: "",
             quill: null,
@@ -57,20 +61,19 @@ export default {
     methods: {
 
         confirmTag(tag) {
-            this.tags=tag
+            this.tags = tag
         },
 
         submit() {
-            const content = JSON.stringify(this.quill.getContents());
-            var length = this.quill.getLength();
+            const length = this.content;
             if (length === 1) {
                 alert("The content cannot be empty!");
                 return;
             }
             const formData = {
                 title: this.subject,
-                content: content,
-                tag:this.tags
+                content: this.content,
+                tag: this.tags
             };
             axios.post("/entry/create_entry/", formData, {
                 headers: { "X-CSRFTOKEN": getCookie("csrftoken") }
@@ -90,11 +93,12 @@ export default {
             console.log("creating entry");
         }
     },
-    components: { InputList ,InputPart }
+    components: { InputList, InputPart }
 }
 
 </script>
 
-<style>/* .ql-toolbar{
+<style>
+/* .ql-toolbar{
     display:none
 } */</style>

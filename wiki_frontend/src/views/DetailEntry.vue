@@ -1,10 +1,23 @@
 <template>
     <div class="container">
+        
+<!-- 
+        <button @click="Edit" v-if="!edit" type="button" class="btn btn-secondary float-end flex">Edit</button>
+        <button @click="disableEdit" type="button" class="btn btn-secondary float-end" v-else >Quit Editting</button>
+        <button v-if="edit" @click="submit">SUBMIT</button> -->
 
-        <button @click="Edit" v-if="!edit">Edit</button>
-        <button @click="disableEdit" v-else>Quit Editting</button>
-        <button @click="submit">SUBMIT</button>
+        <div class="row">
+            <div class="col-md-2" >
+                <button @click="goBack()" type="button" class="btn btn-secondary" >Back</button>
+            </div>
+            <div class="col-md-8" > <h1>{{ title }}</h1> </div>
+            <div class="col-md-2" > 
+                <button @click="Edit" v-if="!edit" type="button" class="btn btn-secondary float-end flex">Edit</button>
+                <button @click="disableEdit" type="button" class="btn btn-secondary float-end" v-else >Quit Editting</button>
+                <button v-if="edit" @click="submit" type="button" class="btn btn-success" >Submit</button>
+            </div>
 
+        </div>
 
         <div v-if="edit">
 
@@ -12,19 +25,15 @@
         </div>
 
         <div v-else>
-
-            tags:
             <span v-for="item in tag" :key="item" class="badge bg-primary me-1">{{ item }}</span>
-
         </div>
-
-        <h1>{{ title }}</h1>
 
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-3" >
                 <div class="toc">
-                    <li v-for="item in tocData" :key="item.id" :class="`item-${item.tagName.charAt(1)}`"><a
+                    <h4 class="mx-auto item-2">{{ title }}</h4>
+                    <li v-for="item in tocData" :key="item.id" :class="`tocitem item-${item.tagName.charAt(1)}`"><a
                             :href="'#' + item.id" @click="anchor(item.id)" :id=a+item.id>{{ item.innerHTML }}</a> </li>
                 </div>
             </div>
@@ -38,11 +47,6 @@
 
                 </div>
             </div>
-
-
-
-
-
         </div>
 
 
@@ -86,6 +90,7 @@ export default {
             value: "## 1 23 \n\n # 456 \n\n $a=1$",
             tocData: null,
             a:"a_", // used to do the toc highlighting
+            toctitle:"",
         }
     },
 
@@ -112,15 +117,13 @@ export default {
                 return;
             }
 
-            this.edit = false;
-
             const conf = confirm("Are you sure you want to quit editting?");
 
             if (conf) {
+                this.edit = false;
                 _this.tag = _this.tag_origin;
                 _this.content = _this.origin_content;
             }
-
 
         },
 
@@ -150,6 +153,10 @@ export default {
 
                 ;
 
+        },
+
+        goBack(){
+            this.$router.go(-1)
         },
 
     },
@@ -184,13 +191,14 @@ export default {
         for (var i = 0; i < tocs.length; i++) {
             tocs[i].id = tocs[i].innerHTML
         }
-        this.tocData = tocs;
+        this.tocData = [].slice.apply(tocs);
+        this.tocData = _this.tocData.slice(1)
 
         window.onscroll = function () {
             var tocs = document.querySelectorAll('h1,h2,h3');
             var e=document.getElementsByClassName("entry")[0]
             // console.log(tocs)
-            for (var i = 0; i < tocs.length; i++) {
+            for (var i = 1; i < tocs.length; i++) {
                 var top = tocs[i].offsetTop + e.offsetTop;
                 var hl = document.getElementById(_this.a + tocs[i].id)
                 if ((top > window.scrollY) && (top < window.scrollY + window.innerHeight)){
@@ -213,14 +221,6 @@ export default {
         window.onscroll = null
 
     },
-
-
-
-
-
-
-
-
 }
 </script>
 
@@ -252,6 +252,10 @@ content {
 }
 
 .active{
-    color:red
+    color:black
+}
+
+.tocitem{
+    text-align: left;
 }
 </style>

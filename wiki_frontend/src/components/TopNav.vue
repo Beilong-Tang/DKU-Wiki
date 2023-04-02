@@ -14,9 +14,14 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'CreateEntry'}">
+                            <a class="nav-link active" aria-current="page" href="#">Create Entry</a>
+                        </router-link>
+                    </li>
                 </ul>
 
-                <form class="m-auto d-block w-50">
+                <form class="m-auto d-block w-50" @submit.prevent="go_search()" >
                     <div class="d-flex">
                         <div class="input-group">
                             <input class="form-control" placeholder="Search" aria-label="Search" v-model="search">
@@ -24,15 +29,16 @@
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false" @click="getTag()">Tag</button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="tagdropdown">
-                                    <li v-for="tag in tags"><button class="dropdown-item btn btn-outline-primary" 
+                                    <li v-for="tag in tags"><button class="dropdown-item btn btn-outline-primary" type="button"
                                         @click="addTag(tag.name)">{{ tag.name }}</button></li>
                                 </ul>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success mx-2" @click="go_search()">Search</button>
+                        <button type="button" class="btn btn-success mx-2" @click="go_search()">Search</button>
                     </div>
                 </form>
+
 
                 <div class="user authenticated" v-if="username">
                     <div class="flex-shrink-0 dropdown">
@@ -63,7 +69,10 @@
                 </div>
             </div>
         </div>
+
+        
     </nav>
+    <div v-if="tag_chose.length!=0">Tags:{{ tag_chose }}</div>
 </template>
 
 <script>
@@ -78,12 +87,21 @@ export default {
             username: "",
             search: "",
             baseurl: "",
-            tags: "",
+            tags: "", // return all the existing tags
+            tag_chose:[],
         }
     },
     methods: {
         addTag(tag_name){
-            this.search = tag_name + this.search
+            console.log(tag_name)
+            // this.search = tag_name+"|" + this.search
+            const index = this.tag_chose.indexOf(tag_name);
+            if (index==-1){
+                this.tag_chose.push(tag_name);
+            }
+            else{
+                this.tag_chose.splice(index,1)
+            }
         },  
 
         getTag() {
@@ -118,8 +136,8 @@ export default {
                 })
         },
         go_search() {
-            console.log(111)
-            this.$router.push({ name: 'EntryList', query: { search: this.search } });
+            // console.log(111)
+            this.$router.push({ name: 'EntryList', query: { search: this.search, tags: this.tag_chose } });
         },
     },
 
