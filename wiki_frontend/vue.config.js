@@ -3,8 +3,8 @@ module.exports = defineConfig({
   transpileDependencies: true
 })
 
-module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/static/wiki/'
-    : '/'
-}
+// to export to the server
+// module.exports = {
+//   publicPath: './',
+//   lintOnSave: false
+// }

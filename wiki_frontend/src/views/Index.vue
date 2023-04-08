@@ -3,7 +3,7 @@
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Duke Wiki</h1>
-        <p v-if ="!this.$store.state.isLogin" class=" fs-4">Welcome to Duke Wiki. Please log in if you want to edit the page</p>
+        <p v-if ="!this.$store.state.isLogin" class=" fs-4">Welcome to Duke Wiki</p>
 
         <p>Welcome to Duke Wiki pre-1.0. Updates can be seen <a href="#">here</a>.</p>
         
@@ -31,6 +31,8 @@
           </router-link>
         </div>
       </div>
+
+
     </div>
   </div>
 

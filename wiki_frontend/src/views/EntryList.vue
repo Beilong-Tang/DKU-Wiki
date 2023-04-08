@@ -18,7 +18,7 @@
                     </div>
                     <p class="mb-1 text">{{ entry.content_min}}</p>
                      <div class="d-flex w-100 justify-content-around">
-                        <small class="text-muted">{{ entry.create_date }}</small>
+                        <small class="text-muted">Created: {{ entry.create_date }}</small>
                         <small class>{{ entry.client.nickname }}</small>
                         <div><span v-for="item in entry.tag" :key="item" class="badge bg-primary me-1">{{ item }}</span></div>
                     </div>
@@ -47,6 +47,8 @@
 import Quill from 'quill'
 
 import axios from 'axios'
+
+import {Data} from './utils/Data.js'
 
 
 export default {
@@ -92,8 +94,10 @@ export default {
                     }
                 )
                     .then(res => {
-                        console.log(res);
-                        this.entries = res.data;
+                        let data = new Data(res.data)
+                        data.change_date()
+                        this.entries = res.data
+
                     })
                     .catch(res => {
                         console.log("catching error");

@@ -1,7 +1,9 @@
 <template>
     <nav class="navbar navbar-expand-xxl navbar-dark bg-dark navbar-expand" aria-label="Seventh navbar example">
         <div class="container-fluid">
+            <router-link :to="{ name: 'Index' }">
             <a class="navbar-brand" href="#">Duke Wiki</a>
+            </router-link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl"
                 aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -147,6 +149,7 @@ export default {
         console.log("Authenticating......");
         axios.get('api/authentication/')
             .then(function (res) {
+                console.log(res)
                 if (res.data.unauthenticated) {
                     console.log("unauthenticated");
                     return;

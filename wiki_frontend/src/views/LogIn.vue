@@ -67,7 +67,7 @@ export default {
             axios
                 .post('/api/login/', formData)
                 .then(function (response) {
-
+                    console.log(response)
                     // store.commit('Login');
                     _this.$store.commit("Login");
                     _this.$router.replace({'name':'EntryList', params: { search: 'all' }})

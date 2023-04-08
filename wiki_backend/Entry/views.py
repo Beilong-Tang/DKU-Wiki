@@ -19,7 +19,6 @@ class PostList(APIView):
 
     def get(self,request):
         tags = request.query_params.get("tags").split(",") # array of tags
-        print(tags)
         search = request.query_params.get('search')
         entries = getEntry(tags=tags, search=search)
         serializer = serializers.EntrySerializer(entries,many=True)

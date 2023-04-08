@@ -1,20 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router'
-// import LogIn from '../views/LogIn.vue'
-// import SignUp from '../views/SignUp.vue'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import LogIn from '../views/LogIn.vue'
+import SignUp from '../views/SignUp.vue'
 import EntryList from '../views/EntryList.vue'
-// import DetailEntry from '../views/DetailEntry.vue'
+import DetailEntry from '../views/DetailEntry.vue'
+import CreateEntry from '../views/CreateEntry.vue'
 import Index from '../views/Index.vue'
+import TagList from '../views/TagList.vue'
+import { createNamespacedHelpers } from 'vuex'
 
 const routes = [
   {
     path: '/LogIn',
     name: 'LogIn',
-    component:()=>import('../views/LogIn.vue')
+    component:LogIn
   },
   {
     path: '/SignUp',
     name: 'SignUp',
-    component:()=>import('../views/SignUp.vue')
+    component:SignUp
   },
   //entry page
   {
@@ -26,30 +29,30 @@ const routes = [
   {
     path:"/tags",
     name:"TagList",
-    component:()=>import('../views/TagList.vue')
+    component:TagList
   },
 
 
   // index page
   {
-    path: '/index/',
+    path: '/indexing/',
     name: 'Index',
     component: Index
   },
   {
     path: '/entry/:id',
     name: 'DetailEntry',
-    component:()=>import('../views/DetailEntry.vue')
+    component:DetailEntry
   },
   {
     path: '/CreateEntry',
     name: 'CreateEntry',
-    component:()=>import('../views/CreateEntry.vue')
+    component:CreateEntry
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
 

@@ -37,9 +37,10 @@ VMdEditor.use(createKatexPlugin())
 
 
 const baseurl = 'http://127.0.0.1:8000'
+// const baseurl = 'http://dku-vcm-2630.vm.duke.edu:8001'
 
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = baseurl
 axios.defaults.withCredentials = true;
 
 const app1 = createApp(App).use(store).use(router,axios);

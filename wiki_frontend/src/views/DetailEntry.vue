@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-md-2" >
-                <button @click="goBack()" type="button" class="btn btn-secondary" >Back</button>
+                <button @click="goBack()" type="button" class="btn btn-secondary" v-if="!edit" >Back</button>
             </div>
             <div class="col-md-8" > <h1>{{ title }}</h1> </div>
             <div class="col-md-2" > 
@@ -32,10 +32,16 @@
 
             <div class="col-md-3" >
                 <div class="toc">
+                    <div v-show="!edit">
                     <h4 class="mx-auto item-2">{{ title }}</h4>
                     <li v-for="item in tocData" :key="item.id" :class="`tocitem item-${item.tagName.charAt(1)}`"><a
-                            :href="'#' + item.id" @click="anchor(item.id)" :id=a+item.id>{{ item.innerHTML }}</a> </li>
+                            :href="'#' + item.id" @click.prevent="anchor(item.id)" :id=a+item.id>{{ item.innerHTML }}</a> </li>
+                    </div>
+                <button v-if="edit" @click="disableEdit" type="button" class="btn btn-secondary float-end" >Quit Editting</button>
+                <button v-if="edit" @click="submit" type="button" class="btn btn-success" >Submit</button>
                 </div>
+                
+                
             </div>
 
             <div class="col-md-9">
@@ -84,8 +90,8 @@ export default {
             create_date: null,
             tag: null, //changeable
             tag_origin: null, //the origianl tag
-            content: null,
-            origin_content: null,
+            content: "",
+            origin_content: "",
             taglist: null,
             value: "## 1 23 \n\n # 456 \n\n $a=1$",
             tocData: null,
@@ -95,6 +101,11 @@ export default {
     },
 
     methods: {
+
+        anchor(id){
+            console.log(id)
+            document.getElementById(id).scrollIntoView()
+        },
 
         confirmTag(tag) {
             this.tag = tag;
@@ -165,8 +176,6 @@ export default {
     created() {
         this.nav_show();
 
-
-        //get taglist 
         const _this = this;
         axios.get("entry/tags")
             .then(res => {
@@ -179,41 +188,51 @@ export default {
                 setData(this, response.data, 'client', 'title', 'create_date', 'tag', 'content')
                 this.origin_content = this.content;
                 this.tag_origin = this.tag;
+                this.$nextTick(function(){
+                    var tocs = document.querySelectorAll('h1,h2,h3');
+                    for (var i = 0; i < tocs.length; i++) {
+                        tocs[i].id = tocs[i].innerHTML
+                    }
+                    this.tocData = [].slice.apply(tocs);
+                    this.tocData = _this.tocData.slice(1);
+                })
             })
             .catch(response => {
                 console.log(response)
             })
+
+        //get taglist 
+        
     },
 
     mounted() {
+        
         const _this = this;
-        var tocs = document.querySelectorAll('h1,h2,h3');
-        for (var i = 0; i < tocs.length; i++) {
-            tocs[i].id = tocs[i].innerHTML
-        }
-        this.tocData = [].slice.apply(tocs);
-        this.tocData = _this.tocData.slice(1)
+        // window.onscroll = function () {
+            
+        //     if (_this.edit){
+        //         return;
+        //     }
 
-        window.onscroll = function () {
-            var tocs = document.querySelectorAll('h1,h2,h3');
-            var e=document.getElementsByClassName("entry")[0]
-            // console.log(tocs)
-            for (var i = 1; i < tocs.length; i++) {
-                var top = tocs[i].offsetTop + e.offsetTop;
-                var hl = document.getElementById(_this.a + tocs[i].id)
-                if ((top > window.scrollY) && (top < window.scrollY + window.innerHeight)){
-                    // tocs[i].className = tocs[i].className + "active "
+        //     var tocs = document.querySelectorAll('h1,h2,h3');
+        //     var e=document.getElementsByClassName("entry")[0]
+        //     // console.log(tocs)
+        //     for (var i = 1; i < tocs.length; i++) {
+        //         var top = tocs[i].offsetTop + e.offsetTop;
+        //         var hl = document.getElementById(_this.a + tocs[i].id)
+        //         if ((top > window.scrollY) && (top < window.scrollY + window.innerHeight)){
+        //             // tocs[i].className = tocs[i].className + "active "
                 
-                    if (hl.className.indexOf("active ")==-1){
-                    hl.className=hl.className +"active ";}
-                }
-                else {
-                    hl.className = hl.className.replace("active ","")
-                }
+        //             if (hl.className.indexOf("active ")==-1){
+        //             hl.className=hl.className +"active ";}
+        //         }
+        //         else {
+        //             hl.className = hl.className.replace("active ","")
+        //         }
 
 
-            }
-        }
+        //     }
+        // }
     },
 
     beforeDestroy() {
