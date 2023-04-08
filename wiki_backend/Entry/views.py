@@ -47,9 +47,7 @@ class CreateEntry(APIView):
     def post(self,request):
         serializer = serializers.CreateEntrySerializer(data=request.data, context={'request':self.request})
         serializer.is_valid(raise_exception=True)
-        print(request.data)
         return Response({'id':serializer.validated_data.get('id')})
-
         pass
 
 class TagList(APIView):
