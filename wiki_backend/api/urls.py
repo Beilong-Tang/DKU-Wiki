@@ -4,6 +4,7 @@ from . import views
 
 app_name='api'
 
+# api/
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", views.LogoutView.as_view(), name="logout"),
@@ -11,4 +12,5 @@ urlpatterns = [
     path("signup/", views.SignUpView.as_view(), name="signup"),
     path("sendemail/", views.SendEmailView.as_view(), name="sendemail"),
     path("duplicate/", views.CheckDuplication.as_view(), name="checkduplicate"),
+    path("userinfo/", views.UserInforChange.as_view(), name="userinfochange"),
 ]

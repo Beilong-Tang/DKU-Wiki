@@ -84,4 +84,21 @@ class CheckDuplication(APIView):
         serializer = serializers.CheckDuplicationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response({'msg':"The username is okay",'code':200})
+
+class UserInforChange(APIView):
     
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def put(self,request):
+        client = request.user.client
+        if request.data.get('nickname'):
+            client.nickname = request.data.get('nickname')
+            client.save()
+
+        
+            return Response({'msg':"The nickname is okay",'code':200})
+        else:
+            return Response({'msg':"The nickname is missing",'code':200})
+
+
+        pass

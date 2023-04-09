@@ -6,7 +6,7 @@ import DetailEntry from '../views/DetailEntry.vue'
 import CreateEntry from '../views/CreateEntry.vue'
 import Index from '../views/Index.vue'
 import TagList from '../views/TagList.vue'
-import { createNamespacedHelpers } from 'vuex'
+import My from '../views/my.vue'
 
 const routes = [
   {
@@ -48,6 +48,11 @@ const routes = [
     path: '/CreateEntry',
     name: 'CreateEntry',
     component:CreateEntry
+  },
+   {
+    path: '/My',
+    name: 'My',
+    component:My
   },
 ]
 

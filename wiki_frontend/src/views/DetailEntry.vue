@@ -14,7 +14,7 @@
         </symbol>
     </svg>
 
-    <div class="alert alert-success d-flex align-items-center" role="alert" v-if="msg"
+    <div class="alert alert-success d-flex align-items-center" role="alert" v-if="msg" 
         style="position:absolute; left: 25%;">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
             <use xlink:href="#check-circle-fill" />
@@ -62,9 +62,8 @@
                 <div class="toc">
                     <div v-show="!edit">
                         <h4 class="mx-auto item-2">{{ title }}</h4>
-                        <li v-for="item in tocData" :key="item.id" :class="`tocitem item-${item.tagName.charAt(1)}`"><a
-                                :href="'#' + item.id" @click.prevent="anchor(item.id)" :id=a + item.id>{{ item.innerHTML
-                                }}</a> </li>
+                        <li v-for="item in tocData" :key="item.id" :class="`tocitem item-${item.tagName.charAt(1)}`">
+                            <a :href="'#' + item.id" @click.prevent="anchor(item.id)" :id="a + item.id">{{ item.innerHTML}}</a> </li>
                     </div>
                     <button v-if="edit" @click="disableEdit" type="button" class="btn btn-secondary float-end">Quit
                         Editting</button>
@@ -128,14 +127,12 @@ export default {
             a: "a_", // used to do the toc highlighting
             toctitle: "",
             msg: false,
-            timer: null,
         }
     },
 
     methods: {
 
         anchor(id) {
-            console.log(id)
             document.getElementById(id).scrollIntoView()
         },
 
@@ -173,11 +170,15 @@ export default {
         },
 
         align_id() {
+            const _this=this;
             this.$nextTick(function () {
                 var tocs = document.querySelectorAll('h1,h2,h3');
                 for (var i = 0; i < tocs.length; i++) {
                     tocs[i].id = tocs[i].innerHTML
                 }
+                _this.tocData = [].slice.apply(tocs);
+                _this.tocData = _this.tocData.slice(1);
+                console.log(this.tocData)
             })
         },
 
@@ -203,7 +204,9 @@ export default {
                     this.origin_content = this.content;
                     this.edit = false
 
-                    this.timer = setTimeout(this.reduce_time, 1000)
+                    this.align_id()
+
+                    setTimeout(this.reduce_time, 1000)
 
                 })
                 .catch(res => {
@@ -239,6 +242,7 @@ export default {
                 setData(this, response.data, 'client', 'title', 'create_date', 'tag', 'content')
                 this.origin_content = this.content;
                 this.tag_origin = this.tag;
+                // console.log(this.tag_origin)
                 this.$nextTick(function () {
                     var tocs = document.querySelectorAll('h1,h2,h3');
                     for (var i = 0; i < tocs.length; i++) {

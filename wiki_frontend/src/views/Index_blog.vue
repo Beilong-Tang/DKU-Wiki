@@ -47,8 +47,6 @@
 
 <script>
 
-import { useStore } from 'vuex'
-const store = useStore()
 
 
 export default {

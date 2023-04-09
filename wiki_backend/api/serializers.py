@@ -56,7 +56,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = ['id','avator']
+        fields = ['id','avator','nickname']
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -181,3 +181,12 @@ class CheckDuplicationSerializer(serializers.Serializer):
 
         return data
 
+# class UserInfoChangeSerializer(serializers.Serializer):
+
+#     nickname = serializers.CharField(
+#         required = True
+#     )
+
+#     def validate(self,data):
+#         nickname=data.get('nickname')
+#         user = 
