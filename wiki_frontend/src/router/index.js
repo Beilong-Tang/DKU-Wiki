@@ -21,7 +21,7 @@ const routes = [
   },
   //entry page
   {
-    path: '/entry',
+    path: '/entrylist',
     name: 'EntryList',
     component: EntryList
   },

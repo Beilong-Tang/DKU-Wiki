@@ -15,8 +15,6 @@
 <script>
 
 import TopNav from './components/TopNav.vue'
-// import LogIn from './views/LogIn.vue'
-// import SignUp from './views/SignUp.vue'
 export default {
   name: 'App',
   components: { TopNav },

@@ -70,7 +70,7 @@ export default {
                     console.log(response)
                     // store.commit('Login');
                     _this.$store.commit("Login");
-                    _this.$router.replace({'name':'EntryList', params: { search: 'all' }})
+                    _this.$router.replace({'name':'EntryList', query: { search: 'all', page_number:1}})
                 })
                 .catch(error => {
                     this.message="Bad Credentials, please try again."

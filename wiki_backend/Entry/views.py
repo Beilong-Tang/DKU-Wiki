@@ -20,10 +20,12 @@ class PostList(APIView):
     def get(self,request):
         tags = request.query_params.get("tags").split(",") # array of tags
         search = request.query_params.get('search')
-        entries = getEntry(tags=tags, search=search)
+        page = request.query_params.get('page')
+        entries, length = getEntry(tags=tags, search=search, page=page)
         serializer = serializers.EntrySerializer(entries,many=True)
-        response = Response(serializer.data)
-
+        data = serializer.data
+        data.append({'length': length})
+        response = Response(data)
         return response
 
     pass

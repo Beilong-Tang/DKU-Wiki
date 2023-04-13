@@ -149,7 +149,7 @@ export default {
         },
         go_search() {
             // console.log(111)
-            this.$router.push({ name: 'EntryList', query: { search: this.search, tags: this.tag_chose } });
+            this.$router.push({ name: 'EntryList', query: { search: this.search, tags: this.tag_chose, page_number:1 } });
         },
 
 

@@ -4,13 +4,22 @@ export default createStore({
   state: {
     isLogin:false,
     //authentication
-    auth_info : null
-
+    auth_info : null,
+    search:"",
+    tags:[],
   },
   getters: {
 
     get_auth_info(state){
       return state.auth_info
+    },
+
+    get_search(state){
+      return state.search
+    },
+
+    get_tags(state){
+      return state.tags
     }
 
   },

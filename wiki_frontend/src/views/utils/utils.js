@@ -1,19 +1,5 @@
-import Quill from 'quill'
 
-// quill
-function setContent(id, content,_this){
-    _this.quill= new Quill('#'+id, {
-            theme: 'snow',
-            readOnly:true,
-            // modules: {
-            //     "toolbar": false
-            // }
-            })
-    _this.quill.setContents(content)
-    // document.getElementById
-    var toolbar = document.getElementsByClassName("ql-toolbar")[0];
-    toolbar.style.display='none';
-}
+
 
 // bind the data received to the data on the page
 function setData(_this, data, args){
@@ -56,7 +42,6 @@ function changeStyle(ifEdit){
 var csrftoken=""
 
 export {
-    setContent,
     csrftoken,
     getCookie,
     changeStyle,

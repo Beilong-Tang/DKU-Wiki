@@ -16,7 +16,7 @@
         <div class="h-100 p-5 text-white bg-dark rounded-3">
           <h2>Entry</h2>
           <p>Click here to see all the entries</p>
-          <router-link :to="{name:'EntryList'}">
+          <router-link :to="{name:'EntryList', query:{page_number:1}}">
           <button class="btn btn-outline-light" type="button">Entries</button>
         
         </router-link>

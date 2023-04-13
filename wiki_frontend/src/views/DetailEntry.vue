@@ -26,10 +26,6 @@
 
     <div class="container">
 
-        <!-- 
-        <button @click="Edit" v-if="!edit" type="button" class="btn btn-secondary float-end flex">Edit</button>
-        <button @click="disableEdit" type="button" class="btn btn-secondary float-end" v-else >Quit Editting</button>
-        <button v-if="edit" @click="submit">SUBMIT</button> -->
 
 
         <div class="row">
@@ -97,7 +93,6 @@
 import InputPart from '../components/InputPart.vue'
 import EntrySideNav from '../components/EntrySideNav.vue'
 import axios from 'axios'
-// import Quill from 'quill'
 import { getCookie } from './utils/utils'
 import { setData } from './utils/utils'
 

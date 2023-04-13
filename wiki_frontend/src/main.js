@@ -9,14 +9,8 @@ import axios from 'axios'
 
 //------
 import 'bootstrap/dist/css/bootstrap.css'
-// import 'jquery/dist/jquery.js'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-// import 'bootstrap/dist/js/bootstrap.bundle.js'
-// import 'bootstrap/dist/js/bootstrap.min.js'
 
-import 'quill/dist/quill.core.css' // 引入样式
-import 'quill/dist/quill.snow.css' // snow theme
-import 'quill/dist/quill.bubble.css' // bubble theme
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 //v-md-editor
 import VMdEditor from '@kangc/v-md-editor';

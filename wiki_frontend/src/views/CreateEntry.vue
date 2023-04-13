@@ -24,7 +24,7 @@
 <script>
 
 import axios from 'axios';
-import Quill from 'quill'
+
 import { getCookie } from './utils/utils'
 import InputList from '../components/InputList.vue'
 import InputPart from '../components/InputPart.vue'
@@ -35,19 +35,12 @@ export default {
             subject: "",
             id: this.$route.query.id,
             content: "",
-            quill: null,
             tags: [], //the tag value that to be submitted
             taglist: null //all the existing tags
         };
     },
     mounted() {
         // check if it is modifying or creating 
-        if (this.id === undefined) {
-            this.quill = new Quill("#editor", {
-                theme: "snow",
-            });
-            return;
-        }
     },
     created() {
         //
@@ -80,7 +73,7 @@ export default {
             })
                 .then(res => {
                     console.log("post successfully created");
-                    this.$router.push({ name: "EntryList", params: { search: this.subject } });
+                    this.$router.push({ name: "EntryList", query: { search: 'all', page_number:1 } });
                 })
                 .catch(res => {
                     console.log(res);
