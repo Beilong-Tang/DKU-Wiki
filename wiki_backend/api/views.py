@@ -102,3 +102,16 @@ class UserInforChange(APIView):
 
 
         pass
+
+class UploadAvator(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        avator = request.data.dict().get('avatar')
+        client = request.user.client
+        client.avator = avator
+        client.save()
+
+        return Response({'msg':"The avator is good",'code':200})
+    pass

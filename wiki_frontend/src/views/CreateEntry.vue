@@ -73,7 +73,7 @@ export default {
             })
                 .then(res => {
                     console.log("post successfully created");
-                    this.$router.push({ name: "EntryList", query: { search: 'all', page_number:1 } });
+                    this.$router.push({ name: "EntryList", query: { search: '', page_number:1, tags:[] } });
                 })
                 .catch(res => {
                     console.log(res);

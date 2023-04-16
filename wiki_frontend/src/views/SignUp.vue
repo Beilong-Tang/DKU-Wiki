@@ -285,8 +285,6 @@ export default {
     },
     name: 'SignUp',
     beforeCreate() {
-        // const token = this.$store.state.token;
-        // axios.defaults.headers.common['Authorization'] = 'Token ' + token;
 
         axios.get('/')
             .then(response => {

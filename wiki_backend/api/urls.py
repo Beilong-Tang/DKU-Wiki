@@ -13,4 +13,5 @@ urlpatterns = [
     path("sendemail/", views.SendEmailView.as_view(), name="sendemail"),
     path("duplicate/", views.CheckDuplication.as_view(), name="checkduplicate"),
     path("userinfo/", views.UserInforChange.as_view(), name="userinfochange"),
+    path("uploadavator/", views.UploadAvator.as_view(), name="uploadavator"),
 ]

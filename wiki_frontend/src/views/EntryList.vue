@@ -8,6 +8,26 @@
     <div class="container">
 
         <div class="row">
+            <div v-if="search && tag_chose.length!=0">
+                You are seeing <span class="text-primary">{{ search }}</span> under tag <span class="text-primary">{{ tag_chose[0] }}</span>. 
+            </div>
+
+            <div v-else-if="search && tag_chose.length==0">
+                You are seeing <span class="text-primary">{{ search }}</span>. 
+            </div>
+
+            <div v-else-if="!search && tag_chose.length==0">
+                You are seeing all the results.
+            </div>
+
+            <div v-else>
+                You are seeing all the wiki entries under tag <span class="text-primary">{{ tag_chose[0] }}</span>.
+            </div> 
+
+            <br>
+            <br>
+
+
 
             <div class="list-group">
                 <button class="list-group-item list-group-item-action" aria-current="true" v-for="entry in entries"
@@ -33,7 +53,7 @@
 
             <!-- <Pagination @updatePagenumber="test" :page_number="page_number" :total_page_number="page_length" /> -->
             <div>
-                <div class="d-inline-block">
+                <div class="d-inline-block" v-if="entries != '' ">
                     <paginate v-model="page_number" :page-count="page_length" :page-range="3" :margin-pages="2"
                         :click-handler="test" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'"
                         :page-class="'page-item'">

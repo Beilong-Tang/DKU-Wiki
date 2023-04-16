@@ -24,16 +24,30 @@ export default createStore({
 
   },
   mutations: {
-    Login(state,data){
+    Login(state,data,baseurl){
       console.log("state login")
       state.isLogin = true;
+      data.client.avator = baseurl + data.client.avator
       state.auth_info=data
     },
 
     Logout(state){
       console.log("state logout")
       state.isLogin = false;
-    }
+    },
+
+    change_tag(state,tag){
+      state.tag = tag;
+    },
+
+    change_search(state,search){
+      state.search = search 
+    },
+
+    change_vator(state,url){
+      console.log(url)
+    },
+    
     
   },
   actions: {

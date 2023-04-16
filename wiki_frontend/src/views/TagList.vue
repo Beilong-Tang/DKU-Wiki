@@ -56,7 +56,7 @@ export default {
 
     methods:{
       gotoTag(tag){
-        this.$router.push({name:"EntryList", query:{tags:[tag.name], page_number:1}})
+        this.$router.push({name:"EntryList", query:{tags:[tag.name], page_number:1, search:""}})
       }
     }
 

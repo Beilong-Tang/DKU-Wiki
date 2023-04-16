@@ -31,6 +31,8 @@
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false" @click="getTag()">Tag</button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="tagdropdown">
+                                    <li><button class="dropdown-item btn btn-outline-primary" type="button"
+                                        @click="removeTag()"><span class="text-primary"> clear all the tags </span></button></li>
                                     <li v-for="tag in tags"><button class="dropdown-item btn btn-outline-primary" type="button"
                                         @click="addTag(tag.name)">{{ tag.name }}</button></li>
                                 </ul>
@@ -79,7 +81,6 @@
 
         
     </nav>
-    <div v-if="tag_chose.length!=0">Tags:{{ tag_chose }}</div>
 </template>
 
 <script>
@@ -100,17 +101,17 @@ export default {
         }
     },
     methods: {
-        addTag(tag_name){
-            console.log(tag_name)
-            // this.search = tag_name+"|" + this.search
-            const index = this.tag_chose.indexOf(tag_name);
-            if (index==-1){
-                this.tag_chose.push(tag_name);
-            }
-            else{
-                this.tag_chose.splice(index,1)
-            }
+        addTag(tag_name){ 
+            var arr =[]
+            arr.push(tag_name)
+            this.tag_chose = arr
+            this.$router.push({name:"EntryList", query: {search:this.search, tags:this.tag_chose, page_number:1}})
         },  
+
+        removeTag(){
+            this.tag_chose = []
+            this.$router.push({name:"EntryList", query: {search:this.search, tags:[], page_number:1}})
+        },
 
         getTag() {
             if (this.tags){
@@ -148,7 +149,6 @@ export default {
             this.$router.push({ name: 'My' });
         },
         go_search() {
-            // console.log(111)
             this.$router.push({ name: 'EntryList', query: { search: this.search, tags: this.tag_chose, page_number:1 } });
         },
 
@@ -164,7 +164,9 @@ export default {
         console.log("Authenticating......");
             axios.get('api/authentication/')
             .then(function (res) {
-                console.log(res)
+                _this.$nextTick(function(){
+                    this.ready = true
+                })
                 if (res.data.unauthenticated) {
                     console.log("unauthenticated");
                     return;
@@ -174,7 +176,6 @@ export default {
                 _this.username = res.data.username
                 _this.if_authenticated = true
                 _this.$store.commit("Login", res.data);
-                _this.ready = true
             })
             .catch(function (res) {
                 console.log(res);

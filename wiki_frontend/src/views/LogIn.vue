@@ -11,7 +11,7 @@
 
             <form @submit.prevent="submitForm">
                 <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-                <h1 class="h3 mb-3 fw-normal">Duke Wiki Signin</h1>
+                <h1 class="h3 mb-3 fw-normal">DKU Wiki Signin</h1>
 
                 <div class="form-floating">
                     <input input type="text" name="username" v-model="username" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -67,15 +67,24 @@ export default {
             axios
                 .post('/api/login/', formData)
                 .then(function (response) {
+                    // this.$router.push({name:'EntryList', query: { search: '', page_number:1, tags:[]}})
+                    // return
                     console.log(response)
                     // store.commit('Login');
-                    _this.$store.commit("Login");
-                    _this.$router.replace({'name':'EntryList', query: { search: 'all', page_number:1}})
+                    // _this.$store.commit("Login");
+                    console.log("gooodd")
+                    _this.jump()
+                    // _this.$router.push({name:'EntryList', query: { search: '', page_number:1, tags:[]}})
                 })
                 .catch(error => {
                     this.message="Bad Credentials, please try again."
                 })
-        }
+        },
+
+        jump(){
+            this.$router.push({name:'EntryList', query: { search: '', page_number:1, tags:[]}})
+        },
+
     }
 }
 
