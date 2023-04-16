@@ -2,7 +2,7 @@ from Entry.models import *
 from Entry import serializers
 
 from .utils.helper import getEntry
-
+from .utils.Entry import record
 
 from rest_framework import authentication
 from rest_framework import permissions

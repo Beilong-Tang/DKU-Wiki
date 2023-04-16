@@ -138,6 +138,7 @@ export default {
             )
                 .then(res => {
                     var length = res.data.pop()
+                    console.log(length.length)
                     _this.page_length = length.length;
                     let data = new Data(res.data)
                     data.change_date()

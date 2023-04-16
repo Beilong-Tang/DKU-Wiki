@@ -3,6 +3,7 @@ import re
 from Entry.models import Entry, Client, Tags
 
 from .utils.tags import TagClass
+from .utils.Entry import record
 
 from django.contrib.auth import authenticate
 
@@ -46,7 +47,7 @@ class DetailEntrySerializer(serializers.ModelSerializer):
 
 # either create an entry or update an entry
 class CreateEntrySerializer(serializers.Serializer):
-    content = serializers.JSONField(
+    content = serializers.CharField(
         label='content'
     )
 
@@ -58,10 +59,16 @@ class CreateEntrySerializer(serializers.Serializer):
         label='tag'
     )
 
+    raw_html = serializers.CharField(
+        label='raw_html'
+    )
+
+
     def validate(self, attrs):
         content = attrs.get('content')
         title = attrs.get('title')
         tag = attrs.get('tag')
+        raw_html = attrs.get('raw_html')
 
         if content is None or title is None:
             raise serializers.ValidationError("the content or title cannot be none", code="400")
@@ -81,14 +88,22 @@ class CreateEntrySerializer(serializers.Serializer):
 
             entry.tag = tag
             entry.content=content
+            entry.raw_html = raw_html
             entry.save()
 
             Tag.modifyTag()
             
         # create a new entry
         else:
-            entry = Entry.objects.create(client = client, content = content, tag = tag,title = title)
+            entry = Entry.objects.create(client = client, content = content, tag = tag,title = title, raw_html = raw_html)
             Tag.addTag()
+
+
+        ## record who save the data 
+        record(client=client, entry = entry, content_new = content)
+
+
+
 
         attrs['id'] = entry.id
         return attrs 

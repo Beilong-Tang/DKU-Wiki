@@ -66,6 +66,7 @@ export default {
             const formData = {
                 title: this.subject,
                 content: this.content,
+                raw_html:document.getElementsByClassName('v-md-textarea-editor')[0].innerHTML,
                 tag: this.tags
             };
             axios.post("/entry/create_entry/", formData, {
