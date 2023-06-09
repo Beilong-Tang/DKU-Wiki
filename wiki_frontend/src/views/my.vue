@@ -133,7 +133,7 @@ export default {
         if (!this.$store.getters.get_auth_info) {
             const _this = this;
             _this.baseurl = _this.global.baseurl;
-            console.log("Authenticating......");
+            console.log("....Authenticating......");
             axios.get('api/authentication/')
                 .then(function (res) {
                     console.log(res)

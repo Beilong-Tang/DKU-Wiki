@@ -14,9 +14,18 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.authentication import SessionAuthentication
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
+    
+
 
 class LoginView(APIView):
     # This view should be accessible also for unauthenticated users.
+    authentication_classes = (CsrfExemptSessionAuthentication,)
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):

@@ -30,11 +30,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-CORS_ALLOWED_ORIGINS=['http://127.0.0.1:8080']
-CSRF_TRUSTED_ORIGINS=['http://127.0.0.1:8080']
+CORS_ALLOWED_ORIGINS=['http://127.0.0.1:8080','http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS=['http://127.0.0.1:8080','http://127.0.0.1:8000']
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8080',
+    'http://127.0.0.1:8000'
 ]
 
 # Email Part
@@ -107,10 +108,21 @@ WSGI_APPLICATION = 'wiki_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME' : BASE_DIR /'db.sqlite3'
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME' : BASE_DIR /'db.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'wiki',
+        'USER': 'dbuser',
+        'PASSWORD': 'gaimima',
+        'HOST': 'dku-vcm-2630.vm.duke.edu',
+        'PORT': '5432',
     }
 }
 

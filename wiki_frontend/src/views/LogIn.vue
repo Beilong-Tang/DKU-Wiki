@@ -72,7 +72,7 @@ export default {
                     console.log(response)
                     // store.commit('Login');
                     // _this.$store.commit("Login");
-                    console.log("gooodd")
+                    console.log("authentication success")
                     _this.jump()
                     // _this.$router.push({name:'EntryList', query: { search: '', page_number:1, tags:[]}})
                 })
