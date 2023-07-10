@@ -89,6 +89,9 @@ class SendEmailView(APIView):
 
 class CheckDuplication(APIView):
     
+    authentication_classes = (CsrfExemptSessionAuthentication,)
+    permission_classes=(permissions.AllowAny,)
+    
     def post(self,request):
         serializer = serializers.CheckDuplicationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
