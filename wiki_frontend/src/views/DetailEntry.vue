@@ -35,10 +35,8 @@
             <div class="col-md-8">
                 <h1>{{ title }}</h1>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" v-if="this.$store.state.isLogin">
                 <button @click="Edit" v-if="!edit" type="button" class="btn btn-secondary float-end flex">Edit</button>
-                <!-- <button @click="disableEdit" type="button" class="btn btn-secondary float-end" v-else>Quit Editting</button>
-                <button v-if="edit" @click="submit" type="button" class="btn btn-success">Submit</button> -->
             </div>
 
         </div>
@@ -84,7 +82,6 @@
     </div>
 
 
-    <!-- <p> The Entry id is {{ id }}</p> -->
 </template>
 
 <script>

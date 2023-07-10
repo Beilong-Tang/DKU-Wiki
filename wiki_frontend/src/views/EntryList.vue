@@ -91,7 +91,7 @@ export default {
             entries: '',
             search: '',
             tag_chose: [],
-            page_number: this.$route.query.page_number,
+            page_number: parseInt(this.$route.query.page_number),
             page_length: null
         }
     },
@@ -138,7 +138,6 @@ export default {
             )
                 .then(res => {
                     var length = res.data.pop()
-                    console.log(length.length)
                     _this.page_length = length.length;
                     let data = new Data(res.data)
                     data.change_date()

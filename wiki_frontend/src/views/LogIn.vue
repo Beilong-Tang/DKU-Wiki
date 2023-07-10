@@ -67,14 +67,9 @@ export default {
             axios
                 .post('/api/login/', formData)
                 .then(function (response) {
-                    // this.$router.push({name:'EntryList', query: { search: '', page_number:1, tags:[]}})
-                    // return
                     console.log(response)
-                    // store.commit('Login');
-                    // _this.$store.commit("Login");
                     console.log("authentication success")
                     _this.jump()
-                    // _this.$router.push({name:'EntryList', query: { search: '', page_number:1, tags:[]}})
                 })
                 .catch(error => {
                     this.message="Bad Credentials, please try again."

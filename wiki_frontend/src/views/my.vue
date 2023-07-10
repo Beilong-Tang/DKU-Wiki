@@ -96,6 +96,7 @@ export default {
         handleSuccess(e){
             this.change_avator = false
             console.log(e)
+            confirm("Your avator has been changed successfully! Please refresh the page.")
         },
 
         handleError(e){
@@ -156,6 +157,9 @@ export default {
         else {
             this.username = this.$store.getters.get_auth_info.username
             this.avator = this.global.baseurl + this.$store.getters.get_auth_info.client.avator
+            
+            console.log(this.$store.getters.get_auth_info.client)
+
             this.nickname = this.$store.getters.get_auth_info.client.nickname
         }
     }

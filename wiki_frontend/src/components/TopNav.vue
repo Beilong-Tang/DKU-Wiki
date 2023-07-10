@@ -59,7 +59,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#" @click="logout()">Sign out</a></li>
+                            <li><a class="dropdown-item" href="#" @click.prevent="logout()">Sign out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -141,7 +141,6 @@ export default {
                 })
                 .catch(function (res) {
                     console.log("logout fail")
-
                 })
         },
 
@@ -171,11 +170,13 @@ export default {
                     console.log("unauthenticated");
                     return;
                 }
+
+                if (!_this.$store.state.isLogin){
                 const avator = res.data.client.avator;
                 _this.avator = _this.baseurl + avator;
                 _this.username = res.data.username
                 _this.if_authenticated = true
-                _this.$store.commit("Login", res.data);
+                _this.$store.commit("Login", res.data);}
             })
             .catch(function (res) {
                 console.log(res);

@@ -112,28 +112,24 @@
 export default{
 
     props:["page_number","total_page_number"],
-    emits:["updatePagenumber"],
 
-    methods:{
-        forwardPageNumber(){
-            var page_number = this.page_number
-            page_number +=1
-            this.$emit("updatePagenumber", page_number)
-       },
+    // methods:{
+    //     forwardPageNumber(){
+    //         var page_number = this.page_number
+    //         page_number +=1
+    //    },
 
-        backwardPageNumber(){
-            var page_number = this.page_number
-            page_number -=1
-            this.$emit("updatePagenumber", page_number)
-        },
+    //     backwardPageNumber(){
+    //         var page_number = this.page_number
+    //         page_number -=1
+    //     },
 
-        toPageNumber(page){
-            var page_number = this.page_number
-            page_number =page
-            this.$emit("updatePagenumber", page_number)
-        }
+    //     toPageNumber(page){
+    //         var page_number = this.page_number
+    //         page_number = page
+    //     }
 
-    }
+    // }
 }
 
 </script>

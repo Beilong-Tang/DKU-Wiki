@@ -24,10 +24,10 @@ export default createStore({
 
   },
   mutations: {
-    Login(state,data,baseurl){
+    Login(state,data){
       console.log("state login")
       state.isLogin = true;
-      data.client.avator = baseurl + data.client.avator
+      data.client.avator = data.client.avator
       state.auth_info=data
     },
 
