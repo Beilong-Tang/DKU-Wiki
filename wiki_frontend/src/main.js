@@ -30,9 +30,10 @@ VMdEditor.use(githubTheme, {
 VMdEditor.use(createKatexPlugin())
 
 
-const baseurl = 'http://127.0.0.1:8000'
+// const baseurl = 'http://127.0.0.1:8000'
 // const baseurl = 'http://dku-vcm-2630.vm.duke.edu:8001'
 // const baseurl = 'http://10.200.20.199:8002'
+const baseurl = "http://hun.colab.dukekunshan.edu.cn:8001"
 
 
 axios.defaults.baseURL = baseurl
