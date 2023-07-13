@@ -1,16 +1,14 @@
 <template>
     <nav class="navbar navbar-expand-xxl navbar-dark bg-dark navbar-expand" aria-label="Seventh navbar example">
         <div class="container-fluid">
+            
             <router-link :to="{ name: 'Index' }">
-            <a class="navbar-brand" href="#">Duke Wiki</a>
+            <a class="navbar-brand" href="#">DKU Wiki</a>
             </router-link>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl"
-                aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
             <div class="collapse navbar-collapse" id="navbarsExampleXxl">
-                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+
+                <ul class="navbar-nav mb-2 mb-xl-0 col-md-2">
                     <li class="nav-item">
                         <router-link :to="{ name: 'Index' }">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -22,8 +20,10 @@
                         </router-link>
                     </li>
                 </ul>
+                
+                
 
-                <form class="m-auto d-block w-50" @submit.prevent="go_search()" >
+                <form class=" d-block col-md-6" @submit.prevent="go_search()" >
                     <div class="d-flex">
                         <div class="input-group">
                             <input class="form-control" placeholder="Search" aria-label="Search" v-model="search">
@@ -43,39 +43,42 @@
                     </div>
                 </form>
 
-                <div v-show="ready">
-                <div class="user authenticated" v-if="username">
-                    <div class="flex-shrink-0 dropdown">
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <img :src=avator alt="mdo" width="32" height="32" class="rounded-circle">
-                        </a>
-                        <ul class="dropdown-menu text-small shadow">
-                            <li>
-                                <router-link :to="{ name: 'My' }">
-                                <a class="dropdown-item" href="#">Profile</a>
-                            </router-link>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#" @click.prevent="logout()">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <div class="col-md-2"></div>
 
-                <div class="user unauthenticated" v-else>
-                    <router-link :to="{ name: 'LogIn' }">
-                        <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    </router-link>
-                    <!-- <button type="button" class="btn btn-outline-light me-2" @click = "go_login()">Login</button> -->
-                    <router-link :to="{ name: 'SignUp' }">
-                        <button type="button" class="btn btn-outline-light me-2">Sign-up</button>
-                    </router-link>
-                </div>
+                <div v-show="ready">
+
+                            <div class="user authenticated" v-if="username">
+                                <div class="flex-shrink-0 dropdown">
+                                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img :src=avator alt="mdo" width="32" height="32" class="rounded-circle">
+                                    </a>
+                                    <ul class="dropdown-menu text-small shadow">
+                                        <li>
+                                            <router-link :to="{ name: 'My' }">
+                                            <a class="dropdown-item" href="#">Profile</a>
+                                        </router-link>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="#" @click.prevent="logout()">Sign out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="user unauthenticated" v-else>
+                                <router-link :to="{ name: 'LogIn' }">
+                                    <button type="button" class="btn btn-outline-light me-2">Login</button>
+                                </router-link>
+                                <!-- <button type="button" class="btn btn-outline-light me-2" @click = "go_login()">Login</button> -->
+                                <router-link :to="{ name: 'SignUp' }">
+                                    <button type="button" class="btn btn-outline-light me-2">Sign-up</button>
+                                </router-link>
+                            </div>
                 </div>
             
-            </div>
+        </div>
 
         </div>
 

@@ -2,13 +2,17 @@
 <div class="container">
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Duke Wiki</h1>
-        <p v-if ="!this.$store.state.isLogin" class=" fs-4">Welcome to Duke Wiki</p>
+        <h1 class="display-5 fw-bold">DKU Wiki</h1>
+        <!-- <p v-if ="!this.$store.state.isLogin" class=" fs-4">Welcome to Duke Wiki</p> -->
 
-        <p>Welcome to Duke Wiki pre-1.0. Updates can be seen <a href="#">here</a>.</p>
+        <p>Welcome to DKU Wiki pre-1.0. Updates can be seen <a href="#">here</a>.</p>
         
+        <div v-show="this.$store.state.auth_info">
         <button v-if= "!this.$store.state.isLogin" class="btn btn-primary btn-lg" type="button" @click="toLogin">LogIn</button>
       </div>
+
+      </div>
+
     </div>
 
     <div class="row align-items-md-stretch">

@@ -11,13 +11,12 @@ def getEntry(tags:list,search:str,page:str):
     problem with current sqlite database, json contain seems not to be supported, it is case insensitive now.
     """
     page = int(page)
-    print(page)
     if search == None and tags==['']:
         e =  Entry.objects.all().order_by("-create_date")
         return e[page_number*page:page_number*(page+1)], int(math.ceil(e.count()/page_number))
     
     elif search !=None and tags==['']:
-        e = Entry.objects.filter(title__contains=search).order_by("-create_date")
+        e = Entry.objects.filter(title__icontains=search).order_by("-create_date")
         return e[page_number*page:page_number*(page+1)], int(math.ceil(e.count()/page_number))
     
     elif search == None and tags!=['']:
