@@ -25,7 +25,6 @@ def getEntry(tags:list,search:str,page:str):
         for i in range(1,len(tags)):
             q = q & Q(tag__icontains=i)
         e = Entry.objects.filter(q).order_by("-create_date")
-        print(int(math.ceil(e.count()/page_number)))
         return e[page_number*page:page_number*(page+1)], int(math.ceil(e.count()/page_number))
     
     elif search !=None and tags!=['']:
@@ -35,6 +34,4 @@ def getEntry(tags:list,search:str,page:str):
             q = q & Q(tag__icontains=i)
 
         e = Entry.objects.filter(q).order_by("-create_date")
-        print(e.count())
-        print(int(math.ceil(e.count()/page_number)))
         return e[page_number*page:page_number*(page+1)], int(math.ceil(e.count()/page_number))

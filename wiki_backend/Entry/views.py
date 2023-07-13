@@ -53,7 +53,7 @@ class CreateEntry(APIView):
         pass
 
 class TagList(APIView):
-
+    
     permission_classes=(permissions.AllowAny,)
 
     def get(self, request):

@@ -25,7 +25,6 @@ class EntrySerializer(serializers.ModelSerializer):
 
     def get_content_min(self, entry):
         content = entry.content
-        # print(content)
         content = content[content.find("\n")+1:]
         content = content[:content.find("#")] 
         content = re.sub("\n+"," ", content)
@@ -101,9 +100,6 @@ class CreateEntrySerializer(serializers.Serializer):
 
         ## record who save the data 
         record(client=client, entry = entry, content_new = content)
-
-
-
 
         attrs['id'] = entry.id
         return attrs 
