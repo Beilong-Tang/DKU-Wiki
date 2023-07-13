@@ -35,6 +35,7 @@ VMdEditor.use(createKatexPlugin())
 // const baseurl = 'http://10.200.20.199:8002'
 const baseurl = "http://hun.colab.dukekunshan.edu.cn:8001"
 
+export {baseurl}
 
 axios.defaults.baseURL = baseurl
 axios.defaults.withCredentials = true;

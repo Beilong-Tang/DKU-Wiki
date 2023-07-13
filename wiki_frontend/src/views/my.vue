@@ -64,6 +64,7 @@ import axios from 'axios';
 import { getCookie } from './utils/utils'
 import VueAvatarUpload from 'vue-avatar-upload';
 import 'vue-avatar-upload/lib/style.css';
+import {baseurl} from "../main.js"
 
 export default {
     components: { VueAvatarUpload },
@@ -74,7 +75,7 @@ export default {
             avator: "",
             nickname: "",
             msg: false,
-            url:'http://127.0.0.1:8000/api/uploadavator/',
+            url: baseurl + '/api/uploadavator/',
             headers:{ "X-CSRFTOKEN": getCookie("csrftoken") },
             change_avator:false
         }
